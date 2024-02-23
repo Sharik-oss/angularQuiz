@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.greetings h1{
+    color: #fff;
+}
+.greetings h3{
+    color: #fff;
+    text-align: center;
+}
+.greetings span{
+    color: #e15f41;
+}
+
+.registrationForm{
+    text-align: center;
+    align-items: center;
+}
+
+button{
+    width: 150px;
+    margin-top: 20px;
+    font-size: 22px;
+    font-family: "BPG Nino Mtavruli", sans-serif;
+}
