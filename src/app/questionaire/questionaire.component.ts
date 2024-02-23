@@ -1,5 +1,5 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-import { question } from '../questionaire';
+import { questionsInterface } from '../questionaire';
 import { CommonModule } from '@angular/common';
 
 
@@ -12,43 +12,73 @@ import { CommonModule } from '@angular/common';
 })
 export class QuestionaireComponent{
 
-  questions : question[] = [
+  questions : questionsInterface[] = [
     {
       questionText: "vin var me?",
-      questionAnswer1: "mamuka",
-      questionAnswer2: "irakli",
-      questionAnswer3: "tornike",
-      questionAnswer4: "lasha"
+      questionAnswers: [
+        "mamuka",
+        "tornike",
+        "irakli",
+        "giorgi"
+      ],
+      answer: "tornike",
+      id: 4
     },
     {
       questionText: "vin var me?",
-      questionAnswer1: "mamuka",
-      questionAnswer2: "irakli",
-      questionAnswer3: "tornike",
-      questionAnswer4: "lasha"
+      questionAnswers: [
+        "mamuka",
+        "tornike",
+        "irakli",
+        "giorgi"
+      ],
+      answer: "mamuka",
+      id: 4
     },
     {
       questionText: "vin var me?",
-      questionAnswer1: "mamuka",
-      questionAnswer2: "irakli",
-      questionAnswer3: "tornike",
-      questionAnswer4: "lasha"
+      questionAnswers: [
+        "mamuka",
+        "tornike",
+        "irakli",
+        "giorgi"
+      ],
+      answer: "giorgi",
+      id: 4
     },
     {
       questionText: "vin var me?",
-      questionAnswer1: "mamuka",
-      questionAnswer2: "irakli",
-      questionAnswer3: "tornike",
-      questionAnswer4: "lasha"
-    },
+      questionAnswers: [
+        "mamuka",
+        "tornike",
+        "irakli",
+        "giorgi"
+      ],
+      answer: "tornike",
+      id: 4
+    }, 
     {
       questionText: "vin var me?",
-      questionAnswer1: "mamuka",
-      questionAnswer2: "irakli",
-      questionAnswer3: "tornike",
-      questionAnswer4: "lasha"
+      questionAnswers: [
+        "mamuka",
+        "tornike",
+        "irakli",
+        "giorgi"
+      ],
+      answer: "mamuka",
+      id: 4
     }    
   ]
+  score: any = 0;
+
+
+  checkAnswer($event: Event, answer: any){
+    if(answer === this.questions[0].answer){
+      console.log(true);
+    }else{
+      console.log(false);      
+    }
+  }
 
 }
   
