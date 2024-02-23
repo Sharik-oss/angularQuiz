@@ -1,9 +1,9 @@
 <div class="main">
     <div class="question-text"></div>
-    <div class="question-answers" *ngFor="let question of questions">
+    <div class="question-answers" *ngFor="let question of questions, let i = index">
         <div class="answer"> {{question.questionText}}</div>
-        <div *ngFor="let index of question.questionAnswers">
-            <button class="answer" (click)="checkAnswer($event, index)">{{index}}</button>
+        <div *ngFor="let answer of question.questionAnswers">
+            <button class="answer" (click)="checkAnswer($event, answer, i)">{{answer}}</button>
         </div>
     </div>
 </div>

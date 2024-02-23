@@ -22,7 +22,7 @@ export class QuestionaireComponent{
         "giorgi"
       ],
       answer: "tornike",
-      id: 4
+      id: 1
     },
     {
       questionText: "vin var me?",
@@ -33,7 +33,7 @@ export class QuestionaireComponent{
         "giorgi"
       ],
       answer: "mamuka",
-      id: 4
+      id: 2
     },
     {
       questionText: "vin var me?",
@@ -44,7 +44,7 @@ export class QuestionaireComponent{
         "giorgi"
       ],
       answer: "giorgi",
-      id: 4
+      id: 3
     },
     {
       questionText: "vin var me?",
@@ -66,14 +66,15 @@ export class QuestionaireComponent{
         "giorgi"
       ],
       answer: "mamuka",
-      id: 4
+      id: 5
     }    
   ]
   score: any = 0;
 
 
-  checkAnswer($event: Event, answer: any){
-    if(answer === this.questions[0].answer){
+  checkAnswer(event: Event, answer: string,index: number){
+    console.log(event, answer, this.questions[0].answer, index );
+    if(answer === this.questions[index].answer){
       console.log(true);
     }else{
       console.log(false);      
