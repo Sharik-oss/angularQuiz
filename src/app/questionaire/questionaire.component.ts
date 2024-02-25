@@ -16,17 +16,25 @@ export class QuestionaireComponent implements OnInit{
   score: any = 0;
   ngOnInit(): void {
     console.log(this.question);
-    
+    console.log(this.question.questionanswers);
   }
 
 
-  checkAnswer(event: Event, answer: string,index: number){
-    console.log(this.question[0].answer);
-    if(answer === this.question[index].answer){
+  checkAnswer(option: string){
+    if(option === this.question.answer){
+      this.i++;
+      this.question = questions[this.i]
+      console.log(this.i);
+      if(this.i < 20){
+        console.log("I'm done");
+        
+      }
       console.log(true);
     }else{
-      console.log(false);      
+      console.log(false);
+      
     }
+    
   }
 
 }

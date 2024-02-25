@@ -1,12 +1,7 @@
 .main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 20px auto;
-    justify-content: space-between;
-    font-size: 25px;
+    margin-top: 50vh;
+    width: 60%;
+    margin-left: 100px;
 }
 
 button{
@@ -15,5 +10,28 @@ button{
 }
 
 .question-text{
+    font-size: 25px;
     color: #fff;
+    text-align: center;
+}
+.question-answers{
+    width: 90%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.answer{
+    position: relative;
+    border: 1px solid #596275;
+    width: 300px;
+    text-align: center;
+    margin: 10px auto;
+    color: #fff;
+    padding: 10px;
+    background-color: transparent;
+    transition: all .4s ease;
+    cursor: pointer;
 }
