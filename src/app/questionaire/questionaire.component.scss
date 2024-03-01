@@ -1,10 +1,25 @@
-
+:host {
+    display: flex;
+    justify-content: center;
+}
 .main{
     // margin-top: 50vh;
-    width: 50%;
+    margin-top: 595px;
+    border: 1px solid white;
+    width: 60%;
     margin-left: 100px;
 }
-
+.wrapper {
+    display: flex;
+    align-items: center;
+//     width: 200px;
+//     border: 1px solid red;
+}
+.sidebar{
+    width: 400px;
+    height: 90vh;
+    border: 1px solid white;
+}
 button{
     width:  200px;
     font-size: 25px;
@@ -36,3 +51,85 @@ button{
     transition: all .4s ease;
     cursor: pointer;
 }
+.answer:disabled{
+    color: #ffffff54;
+    cursor: default;
+}
+
+
+.levels{
+    box-shadow: 2px 2px 10px rgba(0,0,0,.2);
+    width: 100%;
+    margin-top: 5px;
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px 10px;
+}
+.levels-conatiner{
+    margin-top: 100px;
+}
+
+.helpbox{
+    margin-left: 50px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.help-child{
+    box-shadow: inset 2px 2px 10px rgba(255,255,255,.2), inset -2px -2px 10px rgba(255,255,255,.2);
+    width: calc(50% - 10px);
+    background-color: #222f3e;
+    border: none;
+    height: 50px;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all .4s ease;
+}
+
+.help-child:disabled{
+    color: #ffffff54;
+    cursor: default;
+}
+
+.green {
+    background-color: green;
+}
+
+.red {
+    background-color: red;
+}
+
+app-gameover{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+app-modal{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media only screen and  (min-width: 700px) and (max-width: 1500px) {
+   .answer {
+    width: 200px;
+    font-size: 15px;
+   }
+}
+
+@media only screen and  (min-width: 300px) and (max-width:700px) {
+    .answer {
+     background-color: blue;
+    }
+ }

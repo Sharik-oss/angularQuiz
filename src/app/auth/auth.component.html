@@ -6,6 +6,6 @@
     <form class="registrationForm">
         <app-input [control]="name" placeholder="სახელი" type="text" />
         <app-input [control]="surname" placeholder="გვარი" type="text" />
-        <button (click)="testing($event)" [routerLink]="['/questionaire']">შემდეგი</button>
+        <button (click)="testing($event)" [routerLink]="['/questionaire']" [disabled]="registerForm.invalid || inSubmission">შემდეგი</button>
     </form>
 </div>
