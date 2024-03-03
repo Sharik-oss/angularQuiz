@@ -1,9 +1,14 @@
 <div class="wrapper">
     <div class="main">
-        <div class="question-text">{{question.questionText}}</div>
-        <div class="question-answers">
-            <div class="question-wrapper"  *ngFor="let option of question.questionanswers">
-                <button class="answer" [disabled]="clicked" [ngClass]="{'green': question.answer === option && isCorrect, 'red': selectedAnswer() === option && isIncorrect()}" (click)="checkAnswer(option, $event)">{{option}}</button>
+        <div class="user-vs-admin">
+            <!--I will add here user and myself :)-->
+        </div>
+        <div class="question-container">
+            <div class="question-text">{{question.questionText}}</div>
+            <div class="question-answers">
+                <div class="question-wrapper"  *ngFor="let option of question.questionanswers">
+                    <button class="answer" [disabled]="clicked" [ngClass]="{'green': question.answer === option && isCorrect, 'red': selectedAnswer() === option && isIncorrect()}" (click)="checkAnswer(option, $event)">{{option}}</button>
+                </div>
             </div>
         </div>
     </div>

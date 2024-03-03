@@ -4,10 +4,15 @@
 }
 .main{
     // margin-top: 50vh;
-    margin-top: 595px;
+    height: 90vh;
+    
     border: 1px solid white;
     width: 60%;
     margin-left: 100px;
+}
+
+.user-vs-admin{
+    height: 60vh;
 }
 .wrapper {
     display: flex;
@@ -67,9 +72,6 @@ button{
     align-items: center;
     padding: 5px 10px;
 }
-.levels-conatiner{
-    margin-top: 100px;
-}
 
 .helpbox{
     margin-left: 50px;
@@ -104,6 +106,9 @@ button{
 
 .red {
     background-color: red;
+}
+.question-container{
+    height: fit-content;
 }
 
 app-gameover{
