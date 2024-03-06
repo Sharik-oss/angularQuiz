@@ -1,4 +1,4 @@
-import { GameoverComponent } from './gameover.component'
+import { GameoverComponent } from './info-modal.component'
 
 describe('GameoverComponent', () => {
   it('should mount', () => {

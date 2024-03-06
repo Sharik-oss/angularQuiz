@@ -1,9 +1,13 @@
 
 <div class="percentage">
+    <div class="close-div">
+        <mat-icon class="close-button" (click)="closeModal($event)" fontIcon="close">X</mat-icon>
+    </div>
     <div class="wrapper">
         <div class="answers" *ngFor="let answer of question.questionanswers; let i = index;">
-            {{answer}}<mat-progress-bar mode="determinate" value={otherPercentages}></mat-progress-bar> {{otherPercentages[i]}}
+            {{answer}}<mat-progress-bar  mode="determinate" [value]="otherPercentages[i]" ></mat-progress-bar> {{otherPercentages[i]}}%
         </div>
+        
     </div>
     
 </div>

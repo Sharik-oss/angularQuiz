@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
 import { RouterLink } from '@angular/router';
@@ -23,7 +23,7 @@ export class AuthComponent {
     Validators.minLength(3)
   ])
 
-  registerForm = new FormGroup({
+  @Output() registerForm = new FormGroup({
     name: this.name,
     surname: this.surname
   })

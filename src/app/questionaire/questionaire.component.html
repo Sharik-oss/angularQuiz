@@ -1,30 +1,35 @@
 <div class="wrapper">
-    <div class="main">
-        <div class="user-vs-admin">
-            <!--I will add here user and myself :)-->
-        </div>
-        <div class="question-container">
-            <div class="question-text">{{question.questionText}}</div>
-            <div class="question-answers">
-                <div class="question-wrapper"  *ngFor="let option of question.questionanswers">
-                    <button class="answer" [disabled]="clicked" [ngClass]="{'green': question.answer === option && isCorrect, 'red': selectedAnswer() === option && isIncorrect()}" (click)="checkAnswer(option, $event)">{{option}}</button>
+    <div class="game">
+        <div class="main">
+            <div class="cover"></div>
+            <!-- <div class="user-vs-admin">
+                <img src="/../../assets/avatar male.png" class="avatars" alt="male">
+                <img src="../../assets/vs.png" class="avatars" alt="vs">
+                <img src="/../../assets/avatar female.png" class="avatars" alt="female">
+            </div> -->
+            <div class="question-container">
+                <div class="question-text">{{question.questionText}}</div>
+                <div class="question-answers">
+                    <ng-container  *ngFor="let option of question.questionanswers">
+                        <button class="answer" [disabled]="clicked" [ngClass]="{'green': question.answer === option && isCorrect, 'red': selectedAnswer() === option && isIncorrect()}" (click)="checkAnswer(option, $event)">{{option}}</button>
+                    </ng-container >
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="sidebar">
-        <div class="helpbox">
-            <button class="help-child" [disabled]="fiftyFiftyClicked" (click)="getHelpFiftyFifty()"> 50 / 50</button>
-            <button class="help-child" [disabled]="usersHelpClicked" (click)="getUserHelp()"> users</button>
-        </div>
-        <div class="levels-conatiner">
-            <div *ngFor="let amount of amounts" class="levels">
-                <h3>{{amount}}</h3>
+    
+        <div class="sidebar">
+            <div class="helpbox">
+                <button class="help-child" [disabled]="fiftyFiftyClicked" (click)="getHelpFiftyFifty()"> 50 / 50</button>
+                <button class="help-child" [disabled]="usersHelpClicked" (click)="getUserHelp()"> users</button>
+            </div>
+            <div class="levels-conatiner">
+                <div *ngFor="let amount of amounts;index as i" class="levels" [ngClass]="{'active': indexOfAnswer === amounts.length-i -1}">
+                    <h3>{{amount}}</h3>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<app-gameover *ngIf="isOpenGameOver" (closePopup)="isOpenGameOver = false" [score]="score"></app-gameover>
-<app-modal *ngIf="isOpenPercentage" (closePopup)="isOpenPercentage = false" [otherPercentages]="otherPercentages" [indexOfAnswer]="indexOfAnswer"></app-modal>
+<app-gameover *ngIf="isOpenInfoModalOpen" (closePopup)="isOpenInfoModalOpen = false" [score]="score" [title]="title" [description]="description" [buttonText]="buttonText"></app-gameover>
+<app-modal *ngIf="isOpenPercentage" (closePopup)="isOpenPercentage = false" [otherPercentages]="allPercentages" [indexOfAnswer]="indexOfAnswer" [question]="question"></app-modal>

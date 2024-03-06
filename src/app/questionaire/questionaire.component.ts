@@ -1,14 +1,13 @@
 import { Component, OnInit, NgModule, signal, Output, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import questions from "../json/questions.json"
-import { forEach } from 'cypress/types/lodash';
-import { GameoverComponent } from '../gameover/gameover.component';
+import { InfoModal } from '../info-modal/info-modal.component';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-questionaire',
   standalone: true,
-  imports: [CommonModule, GameoverComponent, ModalComponent],
+  imports: [CommonModule, InfoModal, ModalComponent],
   templateUrl: './questionaire.component.html',
   styleUrl: './questionaire.component.scss'
 })
@@ -17,15 +16,20 @@ export class QuestionaireComponent implements OnInit{
   clicked = false;
   fiftyFiftyClicked = false;
   usersHelpClicked = false;
+
+  title : string = "სამწუხაროდ თქვენ დამარცხდით"
+  buttonText: string = "თავიდან დაწყება"
+  description: string = "თქვენი გარანტირებული თანხა შეადგენს  ლარს";
+
   @Output() score = 0;
   @Output() correctPercentage = 0;
-  @Output() otherPercentages = "";
+  allPercentages:number[] = [];
   isCorrect!:boolean;
   correct = "green";
   incorrect = "red";
   selectedAnswerIndex!:number
-  isOpenGameOver:boolean = false
-  @Input() isOpenPercentage: boolean = false
+  isOpenInfoModalOpen:boolean = false
+  @Output() isOpenPercentage: boolean = false
   amounts = [
     20000,
     10000,
@@ -43,7 +47,7 @@ export class QuestionaireComponent implements OnInit{
     30,
     20
   ]
-  @Output() indexOfAnswer : number = 0
+  indexOfAnswer : number = 0
   question : any = questions[this.indexOfAnswer];
   buttonClass : string = '';
 
@@ -71,33 +75,29 @@ export class QuestionaireComponent implements OnInit{
       }
     }
   }
-  getUserHelp(){
-    const correctPercentage = Math.floor(Math.random() * 100);
-
-    // Display the random percentage for correct answer
-    console.log(`Random percentage for correct answer: ${correctPercentage}%`);
-
+  getUserHelp() {
+    this.usersHelpClicked = true
     // Calculate the total number of answers
-    const totalAnswersCount = this.question.questionanswers.length;
+    const totalAnswersCount = this.question.questionanswers[this.indexOfAnswer].length;
 
-    // Initialize an array to store the percentages for other answers
-    const otherPercentages: number[] = [];
-
-    // Generate random percentages for other answers
-    let remainingPercentage = 100 - correctPercentage;
+    // Generate random percentages for each answer
     for (let i = 0; i < totalAnswersCount - 1; i++) {
-        const randomPercentage = Math.floor(Math.random() * remainingPercentage);
-        otherPercentages.push(randomPercentage);
-        remainingPercentage -= randomPercentage;
+        const randomPercentage = Math.floor(Math.random() * (100 - this.allPercentages.reduce((acc, curr) => acc + curr, 0)));
+        this.allPercentages.push(randomPercentage);
     }
 
-    // Ensure the sum of percentages is exactly 100%
-    const sumOfOtherPercentages = otherPercentages.reduce((acc, curr) => acc + curr, 0);
-    otherPercentages.push(correctPercentage + + sumOfOtherPercentages);
-    this.isOpenPercentage = true
-    
-    
-  }
+    // Calculate the sum of generated percentages
+    const sumOfOtherPercentages = this.allPercentages.reduce((acc, curr) => acc + curr, 0);
+
+    // Calculate the last percentage to ensure the sum equals 100
+    const lastPercentage = 100 - sumOfOtherPercentages;
+    this.allPercentages.push(lastPercentage);
+
+    this.isOpenPercentage = true;    
+}
+
+
+
 
 
 
@@ -123,30 +123,44 @@ export class QuestionaireComponent implements OnInit{
         this.isCorrect = false;
       }, 1000)
       if(this.indexOfAnswer === 5){
-        console.log("You have 200 lari");
+        this.isOpenInfoModalOpen = true
+        
         this.score = 200;
+        this.title = "გილოცავთ"
+        this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
+        this.buttonText = "მადლობა"
+        
       }
       if(this.indexOfAnswer === 10){
-        console.log("You have 3 000 lari");
+        this.isOpenInfoModalOpen = true
         this.score = 3000;
+        this.title = "გილოცავთ"
+        this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
+        this.buttonText = "მადლობა"
         
       }
       if(this.indexOfAnswer === 14){
-        console.log("You have 20 000 lari");
+        this.isOpenInfoModalOpen = true
         this.score = 20000;
+        this.title = "გილოცავთ"
+        this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
+        this.buttonText = "მადლობა"
       }
     }else{
       let audio = new Audio();
       audio.src = '../assets/sagol yleo.m4a'
       audio.load()
       audio.play()
+      this.title = "სამწუხაროდ თქვენ დამარცხდით"
+      this.description = `თქვენ შეძელით ${this.score}-ს ლარის დაგროვება`
+      this.buttonText = "თავიდან დაწყება"
       this.isCorrect = false;
       const timeline = setTimeout(()=>{
         console.log(23);
         this.isIncorrect.set(true)
       },1000)
       setTimeout(()=> {
-        this.isOpenGameOver = true;
+        this.isOpenInfoModalOpen = true;
       }, 2000);
     }
   }
