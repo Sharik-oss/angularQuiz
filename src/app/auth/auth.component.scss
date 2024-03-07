@@ -20,11 +20,16 @@
 .registrationForm{
     text-align: center;
     align-items: center;
+    
 }
 
+
 button{
-    width: 150px;
+    width:  150px;
     margin-top: 20px;
+    height: 50px;
+    border-radius: 20px;
+    border-style: none;
     font-size: 22px;
-    font-family: "BPG Nino Mtavruli", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

@@ -18,8 +18,9 @@ export class QuestionaireComponent implements OnInit{
   usersHelpClicked = false;
 
   title : string = "სამწუხაროდ თქვენ დამარცხდით"
-  buttonText: string = "თავიდან დაწყება"
+  @Output() buttonText: string = ""
   description: string = "თქვენი გარანტირებული თანხა შეადგენს  ლარს";
+  @Output()  gameOver: boolean = false;
 
   @Output() score = 0;
   @Output() correctPercentage = 0;
@@ -27,8 +28,9 @@ export class QuestionaireComponent implements OnInit{
   isCorrect!:boolean;
   correct = "green";
   incorrect = "red";
+  
   selectedAnswerIndex!:number
-  isOpenInfoModalOpen:boolean = false
+  @Output() isOpenInfoModalOpen:boolean = false
   @Output() isOpenPercentage: boolean = false
   amounts = [
     20000,
@@ -99,7 +101,10 @@ export class QuestionaireComponent implements OnInit{
 
 
 
-
+  onPopupClose(event:boolean){
+    console.log('parent over',this.gameOver)
+    this.isOpenInfoModalOpen = event
+  }
 
   checkAnswer(option: string, $event: MouseEvent){
     console.log(option);
@@ -129,6 +134,9 @@ export class QuestionaireComponent implements OnInit{
         this.title = "გილოცავთ"
         this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
         this.buttonText = "მადლობა"
+        this.gameOver = false;
+        console.log(this.buttonText);
+        
         
       }
       if(this.indexOfAnswer === 10){
@@ -137,6 +145,7 @@ export class QuestionaireComponent implements OnInit{
         this.title = "გილოცავთ"
         this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
         this.buttonText = "მადლობა"
+        this.gameOver = false;
         
       }
       if(this.indexOfAnswer === 14){
@@ -145,14 +154,16 @@ export class QuestionaireComponent implements OnInit{
         this.title = "გილოცავთ"
         this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
         this.buttonText = "მადლობა"
+        this.gameOver = false;
       }
     }else{
       let audio = new Audio();
       audio.src = '../assets/sagol yleo.m4a'
       audio.load()
       audio.play()
+      this.gameOver = true;
       this.title = "სამწუხაროდ თქვენ დამარცხდით"
-      this.description = `თქვენ შეძელით ${this.score}-ს ლარის დაგროვება`
+      this.description = `თქვენ შეძელით ${this.score} ლარის დაგროვება`
       this.buttonText = "თავიდან დაწყება"
       this.isCorrect = false;
       const timeline = setTimeout(()=>{

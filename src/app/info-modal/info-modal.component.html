@@ -18,10 +18,10 @@
            {{description}}
         </div>
         <div class="gameover__action">
-            <a class="gameover__button" >{{buttonText}}</a>
+            <a class="gameover__button"  (click)="handleClick($event)">{{buttonText}}</a>
         </div>
     </div>
     <div class="gameover__overlay"></div>
 </div>
 
-<!-- <span [ngClass]="{'active': score > 0}" class="gameover__bold">{{score}}</span> -->
+<!-- <span [ngClass]="{'active': score > 0}" class="gameover__bold">{{score}}</span>   -->

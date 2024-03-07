@@ -31,5 +31,5 @@
     </div>
 </div>
 
-<app-gameover *ngIf="isOpenInfoModalOpen" (closePopup)="isOpenInfoModalOpen = false" [score]="score" [title]="title" [description]="description" [buttonText]="buttonText"></app-gameover>
+<app-info-modal *ngIf="isOpenInfoModalOpen" (closePopup)="onPopupClose($event)" [score]="score" [title]="title" [description]="description" [buttonText]="buttonText" [gameOver]="gameOver"></app-info-modal>
 <app-modal *ngIf="isOpenPercentage" (closePopup)="isOpenPercentage = false" [otherPercentages]="allPercentages" [indexOfAnswer]="indexOfAnswer" [question]="question"></app-modal>
