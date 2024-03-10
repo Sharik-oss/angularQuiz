@@ -16,6 +16,7 @@ export class QuestionaireComponent implements OnInit{
   clicked = false;
   fiftyFiftyClicked = false;
   usersHelpClicked = false;
+  fiftyUsed!:any;
 
   title : string = "სამწუხაროდ თქვენ დამარცხდით"
   @Output() buttonText: string = ""
@@ -57,12 +58,10 @@ export class QuestionaireComponent implements OnInit{
   selectedAnswer = signal('')
 
 
-  ngOnInit(): void {
-    console.log(this.question);
-    console.log(this.question.questionanswers);
-  }
+ 
   getHelpFiftyFifty(){
     this.fiftyFiftyClicked = true;
+    localStorage.setItem('fiftyfiftyUsed', JSON.stringify(this.fiftyFiftyClicked));
 
     const correctAnswerIndex = this.question.questionanswers.indexOf(this.question.answer)
     let disableIndex = Math.floor(Math.random() * this.question.questionanswers.length);
@@ -79,6 +78,7 @@ export class QuestionaireComponent implements OnInit{
   }
   getUserHelp() {
     this.usersHelpClicked = true
+    localStorage.setItem('userHelp', JSON.stringify(this.usersHelpClicked))
     // Calculate the total number of answers
     const totalAnswersCount = this.question.questionanswers[this.indexOfAnswer].length;
 
@@ -102,7 +102,6 @@ export class QuestionaireComponent implements OnInit{
 
 
   onPopupClose(event:boolean){
-    console.log('parent over',this.gameOver)
     this.isOpenInfoModalOpen = event
   }
 
@@ -113,6 +112,7 @@ export class QuestionaireComponent implements OnInit{
     this.clicked = true
     if(option === this.question.answer){
       this.isIncorrect.set(false)
+      this.usersHelpClicked = false
       this.isCorrect = true;
       let audio = new Audio();
       audio.src = '../assets/anime-ahh.mp3'
@@ -130,8 +130,10 @@ export class QuestionaireComponent implements OnInit{
       if(this.indexOfAnswer === 5){
         this.isOpenInfoModalOpen = true
         
+        console.log()
+        
         this.score = 200;
-        this.title = "გილოცავთ"
+        this.title = `გილოცავთ ${localStorage.getItem('user-name')}`;
         this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
         this.buttonText = "მადლობა"
         this.gameOver = false;
@@ -142,7 +144,7 @@ export class QuestionaireComponent implements OnInit{
       if(this.indexOfAnswer === 10){
         this.isOpenInfoModalOpen = true
         this.score = 3000;
-        this.title = "გილოცავთ"
+        this.title = `გილოცავთ ${localStorage.getItem('user-name')}`;
         this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
         this.buttonText = "მადლობა"
         this.gameOver = false;
@@ -151,10 +153,10 @@ export class QuestionaireComponent implements OnInit{
       if(this.indexOfAnswer === 14){
         this.isOpenInfoModalOpen = true
         this.score = 20000;
-        this.title = "გილოცავთ"
+        this.title = `გილოცავთ ${localStorage.getItem('user-name')}`;
         this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
         this.buttonText = "მადლობა"
-        this.gameOver = false;
+        this.gameOver = true;
       }
     }else{
       let audio = new Audio();
@@ -162,7 +164,7 @@ export class QuestionaireComponent implements OnInit{
       audio.load()
       audio.play()
       this.gameOver = true;
-      this.title = "სამწუხაროდ თქვენ დამარცხდით"
+      this.title = `სამწუხაროდ ${localStorage.getItem('user-name')} თქვენ დამარცხდით`;
       this.description = `თქვენ შეძელით ${this.score} ლარის დაგროვება`
       this.buttonText = "თავიდან დაწყება"
       this.isCorrect = false;
@@ -174,6 +176,21 @@ export class QuestionaireComponent implements OnInit{
         this.isOpenInfoModalOpen = true;
       }, 2000);
     }
+  }
+
+  ngOnInit(): void {
+    if(localStorage.getItem('fiftyfiftyUsed') == "true"){
+      this.fiftyFiftyClicked = true
+    }else{
+      this.fiftyFiftyClicked = false;
+    }
+
+    if(localStorage.getItem('userHelp') == "true" ){
+      this.usersHelpClicked = true
+    }else{
+      this.usersHelpClicked = false
+    }
+
   }
 
 }

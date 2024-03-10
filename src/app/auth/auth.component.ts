@@ -34,6 +34,10 @@ export class AuthComponent {
       
     }else{
       this.inSubmission = true;
+      localStorage.setItem('fiftyfiftyUsed', "false")
+      localStorage.setItem('userHelp', "false")
+      localStorage.setItem('user-name', this.registerForm.value.name!.toString())
+      localStorage.setItem('user-second-name', this.registerForm.value.surname!.toString())
     }
     $event.preventDefault()
   }
