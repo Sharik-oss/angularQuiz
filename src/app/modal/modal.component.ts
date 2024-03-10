@@ -10,7 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
   selector: 'app-modal',
   standalone: true,
   templateUrl: './modal.component.html',
-  styleUrl: './modal.component.css',
+  styleUrl: './modal.component.scss',
   imports: [CommonModule, MatProgressBarModule, MatIconModule]
 })
 export class ModalComponent {

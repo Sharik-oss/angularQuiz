@@ -10,6 +10,8 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+
 .gameover{
     position: relative;
     width: 100vw;
@@ -31,15 +33,12 @@
         overflow: hidden;
     }
     &__close{
-        width:15px;
-        height:15px;
-        background:#a94747;
-        border-radius:50%;
         cursor: pointer;
     }
     &__content{
         padding:25px 20px;
         font-size:16px;
+        justify-content: center;
     }
     &__action{
         padding:5px 20px 15px 20px;
@@ -86,5 +85,17 @@
         top:0;
         left:0;
         background:rgba(0,0,0,0.4);
+    }
+    &__answers{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 17px;
+        mat-progress-bar{
+            width: 300px;
+            position: fixed;
+            left: 42%;
+            padding: 10px;
+        }
     }
 }

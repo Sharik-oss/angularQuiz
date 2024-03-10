@@ -10,6 +10,7 @@
           "style": "scss"
         }
       },
+      
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -35,6 +36,7 @@
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
+            
             "ssr": {
               "entry": "server.ts"
             }
@@ -97,7 +99,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules/"]
+            }
           }
         },
         "cypress-run": {
