@@ -1,11 +1,13 @@
 <div class="wrapper">
-    <div class="greetings">
-        <h1>თქვენ თამაშობთ ვის უნდა <span>20 000</span> ლარი</h1>
-        <h3>თამაშის დასაწყებად საჭიროა გაიაროთ რეგისტრაცია</h3>
+    <div class="main">
+        <div class="greetings">
+            <h1>თქვენ თამაშობთ ვის უნდა <span>20 000</span> ლარი</h1>
+            <h3>თამაშის დასაწყებად საჭიროა გაიაროთ რეგისტრაცია</h3>
+        </div>
+        <form class="registrationForm">
+            <app-input [control]="name" placeholder="სახელი" type="text" />
+            <app-input [control]="surname" placeholder="გვარი" type="text" />
+            <button (click)="testing($event)" [routerLink]="['/questionaire']" [ngClass]="{'active': !registerForm.invalid && !inSubmission}" [disabled]="registerForm.invalid || inSubmission">შემდეგი</button>
+        </form>
     </div>
-    <form class="registrationForm">
-        <app-input [control]="name" placeholder="სახელი" type="text" />
-        <app-input [control]="surname" placeholder="გვარი" type="text" />
-        <button (click)="testing($event)" [routerLink]="['/questionaire']" [disabled]="registerForm.invalid || inSubmission">შემდეგი</button>
-    </form>
 </div>

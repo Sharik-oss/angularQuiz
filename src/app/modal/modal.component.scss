@@ -25,8 +25,9 @@
         border-radius:6px;
         color: white;
         border: 1px solid #1a1d33;
-        justify-content: center;
-        width: 100%;
+        justify-content: space-between;
+        width: 700px;
+        
         max-width: 500px;
         box-shadow: 0 0 30px 0 #080708;
         background-color: #111321;
@@ -38,7 +39,7 @@
     &__content{
         padding:25px 20px;
         font-size:16px;
-        justify-content: center;
+        justify-content: space-between;
     }
     &__action{
         padding:5px 20px 15px 20px;
@@ -89,13 +90,25 @@
     &__answers{
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        padding: 27px 8px;
         font-size: 17px;
+        height: 45px;
+        border: 1px solid white;
+        width: 467px;
+        p{
+            white-space: inherit;
+        }
         mat-progress-bar{
-            width: 300px;
+            width: 200px;
             position: fixed;
-            left: 42%;
+            left: 50%;
             padding: 10px;
         }
+    }
+    &__wrapper{
+        margin: 0 10px;
+        display: flex;
+        justify-content: space-between;
+        width: 47%;
     }
 }

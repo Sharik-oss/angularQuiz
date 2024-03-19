@@ -6,7 +6,7 @@
         </div>
         <div class="gameover__content">
             <div class="gameover__answers" *ngFor="let answer of question.questionanswers; let i = index;">
-                {{answer}}<mat-progress-bar  mode="determinate" [value]="otherPercentages[i]" ></mat-progress-bar> {{otherPercentages[i]}}%
+                 <div class="gameover__wrapper"><p>{{answer}}</p><p>{{otherPercentages[i]}}%</p></div>   <mat-progress-bar  mode="determinate" [value]="otherPercentages[i]" [color]="'accent'"></mat-progress-bar> 
             </div>
         </div>
     </div>

@@ -3,11 +3,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
 import { RouterLink } from '@angular/router';
 import { Router } from 'express';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [ InputComponent,RouterLink],
+  imports: [ InputComponent,RouterLink, CommonModule],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss'
 })

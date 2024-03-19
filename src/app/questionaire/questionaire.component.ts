@@ -82,7 +82,7 @@ export class QuestionaireComponent implements OnInit{
     this.usersHelpClicked = true
     localStorage.setItem('userHelp', JSON.stringify(this.usersHelpClicked))
     // Calculate the total number of answers
-    const totalAnswersCount = this.question.questionanswers[this.indexOfAnswer].length;
+    const totalAnswersCount = this.question.questionanswers.length;
 
     // Generate random percentages for each answer
     for (let i = 0; i < totalAnswersCount - 1; i++) {
@@ -113,13 +113,10 @@ export class QuestionaireComponent implements OnInit{
     this.selectedAnswer.set(option)
     this.clicked = true
     localStorage.setItem('user-score', JSON.stringify(this.score))
+    console.log(this.question)
     if(option === this.question.answer){
       this.isIncorrect.set(false)
       this.isCorrect = true;
-      let audio = new Audio();
-      audio.src = '../assets/anime-ahh.mp3'
-      audio.load()
-      audio.play()
       const timeline = setTimeout(()=>{
        
         this.clicked = false
@@ -165,10 +162,6 @@ export class QuestionaireComponent implements OnInit{
       
       
     }else{
-      let audio = new Audio();
-      audio.src = '../assets/sagol yleo.m4a'
-      audio.load()
-      audio.play()
       this.gameOver = true;
       this.title = `სამწუხაროდ ${localStorage.getItem('user-name')} თქვენ დამარცხდით`;
       this.description = `თქვენ შეძელით ${localStorage.getItem('user-score')} ლარის დაგროვება`
