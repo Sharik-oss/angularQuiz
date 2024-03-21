@@ -19,7 +19,9 @@ export class ModalComponent {
   @Input() indexOfAnswer : number = 0;
   @Output() closePopup = new EventEmitter<boolean>()
   @Input() question:any = [];
-
+  constructor(){
+    console.log(this.otherPercentages)
+  }
   closeModal($event: Event){
     $event.preventDefault()
     this.isActive = false;

@@ -55,7 +55,8 @@ export class QuestionaireComponent implements OnInit{
   indexOfAnswer : number = 0
   question : any = questions[this.indexOfAnswer];
   buttonClass : string = '';
-
+  disableIndex: number = 0;
+  disabledIndexes: number[] = [];
   isIncorrect = signal(false)
   selectedAnswer = signal('')
 
@@ -71,33 +72,64 @@ export class QuestionaireComponent implements OnInit{
     while (disableIndex === correctAnswerIndex) {
       disableIndex = Math.floor(Math.random() * this.question.questionanswers.length);
     }
-
     for(let i = 0; i < this.question.questionanswers.length; i++){
       if(i !== correctAnswerIndex && i !== disableIndex){
         document.getElementsByClassName('answer')[i].setAttribute('disabled', 'true');
+        this.disabledIndexes.push(i);
+        
       }
     }
   }
   getUserHelp() {
     this.usersHelpClicked = true
+    
+    
     localStorage.setItem('userHelp', JSON.stringify(this.usersHelpClicked))
     // Calculate the total number of answers
-    const totalAnswersCount = this.question.questionanswers.length;
+    if(this.fiftyFiftyClicked === true){
+      const totalAnswersCount = this.question.questionanswers.length;
 
     // Generate random percentages for each answer
-    for (let i = 0; i < totalAnswersCount - 1; i++) {
-        const randomPercentage = Math.floor(Math.random() * (100 - this.allPercentages.reduce((acc, curr) => acc + curr, 0)));
-        this.allPercentages.push(randomPercentage);
-    }
+      for (let i = 0; i < totalAnswersCount - 1; i++) {
+          const randomPercentage = Math.floor(Math.random() * (100 - this.allPercentages.reduce((acc, curr) => acc + curr, 0)));
+          this.allPercentages.push(randomPercentage);
+          
+      }
+      
 
     // Calculate the sum of generated percentages
-    const sumOfOtherPercentages = this.allPercentages.reduce((acc, curr) => acc + curr, 0);
+      const sumOfOtherPercentages = this.allPercentages.reduce((acc, curr) => acc + curr, 0);
 
-    // Calculate the last percentage to ensure the sum equals 100
-    const lastPercentage = 100 - sumOfOtherPercentages;
-    this.allPercentages.push(lastPercentage);
+      // Calculate the last percentage to ensure the sum equals 100
+      const lastPercentage = 100 - sumOfOtherPercentages;
+      
+      this.allPercentages.push(lastPercentage);
+      // for(let i = 0; i < this.disabledIndexes.length; i++){
+      //   console.log(this.disabledIndexes[i])
+       
+      // }
+      console.log(this.allPercentages);
+      
+    }else{
+      const totalAnswersCount = this.question.questionanswers.length;
 
+    // Generate random percentages for each answer
+      for (let i = 0; i < totalAnswersCount - 1; i++) {
+          const randomPercentage = Math.floor(Math.random() * (100 - this.allPercentages.reduce((acc, curr) => acc + curr, 0)));
+          this.allPercentages.push(randomPercentage);
+      }
+
+    // Calculate the sum of generated percentages
+      const sumOfOtherPercentages = this.allPercentages.reduce((acc, curr) => acc + curr, 0);
+
+      // Calculate the last percentage to ensure the sum equals 100
+      const lastPercentage = 100 - sumOfOtherPercentages;
+
+      this.allPercentages.push(lastPercentage);
+      console.log(this.allPercentages);
+    }
     this.isOpenPercentage = true;    
+    
 }
 
 
@@ -108,10 +140,8 @@ export class QuestionaireComponent implements OnInit{
   }
 
   checkAnswer(option: string, $event: MouseEvent){
-    console.log(option);
     this.clicked = true;
     this.selectedAnswer.set(option)
-    this.clicked = true
     localStorage.setItem('user-score', JSON.stringify(this.score))
     console.log(this.question)
     if(option === this.question.answer){
