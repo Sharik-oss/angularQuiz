@@ -59,12 +59,15 @@ export class QuestionaireComponent implements OnInit{
   disabledIndexes: number[] = [];
   isIncorrect = signal(false)
   selectedAnswer = signal('')
+  deletedAnswers: string[] = []
+  correctAnswersSave: string[] = []
 
 
  
   getHelpFiftyFifty(){
     this.fiftyFiftyClicked = true;
-    localStorage.setItem('fiftyfiftyUsed', JSON.stringify(this.fiftyFiftyClicked));
+    this.setLocalStorage('fiftyfiftyUsed', JSON.stringify(this.fiftyFiftyClicked));
+    
 
     const correctAnswerIndex = this.question.questionanswers.indexOf(this.question.answer)
     let disableIndex = Math.floor(Math.random() * this.question.questionanswers.length);
@@ -75,8 +78,10 @@ export class QuestionaireComponent implements OnInit{
     for(let i = 0; i < this.question.questionanswers.length; i++){
       if(i !== correctAnswerIndex && i !== disableIndex){
         document.getElementsByClassName('answer')[i].setAttribute('disabled', 'true');
-        this.disabledIndexes.push(i);
-        
+      
+      } else {
+        // this.deletedAnswers = this.question.questionanswers.filter((i: any) => i !== this.question.questionanswers[i])
+        this.correctAnswersSave.push(this.question.questionanswers[i])
       }
     }
   }
@@ -84,17 +89,37 @@ export class QuestionaireComponent implements OnInit{
     this.usersHelpClicked = true
     
     
-    localStorage.setItem('userHelp', JSON.stringify(this.usersHelpClicked))
-    // Calculate the total number of answers
-    if(this.fiftyFiftyClicked === true){
-      const totalAnswersCount = this.question.questionanswers.length;
+    this.setLocalStorage('userHelp', JSON.stringify(this.usersHelpClicked))
+
+    if(this.fiftyFiftyClicked){
+      
+      console.log( this.correctAnswersSave);
+      
+      // console.log(this.deletedAnswers, "went here");
+      // const totalAnswersCount = this.deletedAnswers.length;
+
+      var remainingPercentage = 100;
+
+      for (var i = 0; i < this.correctAnswersSave.length - 1; i++) {
+        var randomPercentage = Math.floor(Math.random() * remainingPercentage);
+        this.allPercentages.push(randomPercentage);
+        remainingPercentage -= randomPercentage;
+    }
+
 
     // Generate random percentages for each answer
-      for (let i = 0; i < totalAnswersCount - 1; i++) {
-          const randomPercentage = Math.floor(Math.random() * (100 - this.allPercentages.reduce((acc, curr) => acc + curr, 0)));
-          this.allPercentages.push(randomPercentage);
+      // for (let i = 0; i < this.correctAnswersSave.length; i++) {
+        
+      //     // this.deletedAnswers.splice(0, 2)
+      //     // console.log(this.deletedAnswers, "deleted");
           
-      }
+          
+      //     const randomPercentage = Math.floor(Math.random() * (100 - this.allPercentages.reduce((acc, curr) => acc + curr, 0)));
+          
+      //     this.allPercentages.push(randomPercentage);
+      //     console.log(this.allPercentages);
+          
+      // }
       
 
     // Calculate the sum of generated percentages
@@ -104,11 +129,7 @@ export class QuestionaireComponent implements OnInit{
       const lastPercentage = 100 - sumOfOtherPercentages;
       
       this.allPercentages.push(lastPercentage);
-      // for(let i = 0; i < this.disabledIndexes.length; i++){
-      //   console.log(this.disabledIndexes[i])
-       
-      // }
-      console.log(this.allPercentages);
+      // console.log(this.allPercentages);
       
     }else{
       const totalAnswersCount = this.question.questionanswers.length;
@@ -126,7 +147,7 @@ export class QuestionaireComponent implements OnInit{
       const lastPercentage = 100 - sumOfOtherPercentages;
 
       this.allPercentages.push(lastPercentage);
-      console.log(this.allPercentages);
+      // console.log(this.allPercentages);
     }
     this.isOpenPercentage = true;    
     
@@ -142,38 +163,40 @@ export class QuestionaireComponent implements OnInit{
   checkAnswer(option: string, $event: MouseEvent){
     this.clicked = true;
     this.selectedAnswer.set(option)
-    localStorage.setItem('user-score', JSON.stringify(this.score))
-    console.log(this.question)
+    this.setLocalStorage('user-score', JSON.stringify(this.score))
+    // console.log(this.question)
     if(option === this.question.answer){
-      this.isIncorrect.set(false)
-      this.isCorrect = true;
-      const timeline = setTimeout(()=>{
-       
-        this.clicked = false
-      },1000)
+     
+      
+      setTimeout(()=>{
+        this.isCorrect = true;
+        this.isIncorrect.set(false)
+        
+      },2000)
       setTimeout(() => {
         this.indexOfAnswer++;
-        localStorage.setItem('user-level', JSON.stringify(this.indexOfAnswer))
+        this.clicked = false
+        this.setLocalStorage('user-level', JSON.stringify(this.indexOfAnswer))
         this.question = questions[this.indexOfAnswer]
         this.isCorrect = false;
-      }, 1000)
+      }, 3000)
       if(this.indexOfAnswer === 5){
         this.isOpenInfoModalOpen = true      
         this.score = 200;
-        localStorage.setItem('user-score', JSON.stringify(this.score))
-        this.title = `გილოცავთ ${localStorage.getItem('user-name')}`;
+        this.setLocalStorage('user-score', JSON.stringify(this.score))
+        this.title = `გილოცავთ ${this.getLocalStorage('user-name')}`;
         this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
         this.buttonText = "მადლობა"
         this.gameOver = false;
-        console.log(this.buttonText);
+        // console.log(this.buttonText);
         
         
       }
       if(this.indexOfAnswer === 10){
         this.isOpenInfoModalOpen = true
         this.score = 3000;
-        localStorage.setItem('user-score', JSON.stringify(this.score))
-        this.title = `გილოცავთ ${localStorage.getItem('user-name')}`;
+        this.setLocalStorage('user-score', JSON.stringify(this.score))
+        this.title = `გილოცავთ ${this.getLocalStorage('user-name')}`;
         this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`
         this.buttonText = "მადლობა"
         this.gameOver = false;
@@ -182,8 +205,8 @@ export class QuestionaireComponent implements OnInit{
       if(this.indexOfAnswer === 14){
         this.isOpenInfoModalOpen = true
         this.score = 20000;
-        localStorage.setItem('user-score', JSON.stringify(this.score))
-        this.title = `გილოცავთ ${localStorage.getItem('user-name')}`;
+        this.setLocalStorage('user-score', JSON.stringify(this.score))
+        this.title = `გილოცავთ ${this.getLocalStorage('user-name')}`;
         this.description = `თქვენ მოიგეთ ${this.score} ლარი :)`
         this.buttonText = "მადლობა"
         this.gameOver = true;
@@ -193,37 +216,53 @@ export class QuestionaireComponent implements OnInit{
       
     }else{
       this.gameOver = true;
-      this.title = `სამწუხაროდ ${localStorage.getItem('user-name')} თქვენ დამარცხდით`;
-      this.description = `თქვენ შეძელით ${localStorage.getItem('user-score')} ლარის დაგროვება`
+      this.title = `სამწუხაროდ ${this.getLocalStorage('user-name')} თქვენ დამარცხდით`;
+      this.description = `თქვენ შეძელით ${this.getLocalStorage('user-score')} ლარის დაგროვება`
       this.buttonText = "თავიდან დაწყება"
       this.isCorrect = false;
-      this.indexOfAnswer = 0;
-      localStorage.setItem('user-level', this.indexOfAnswer.toString())
+      
+      
       const timeline = setTimeout(()=>{
-        console.log(23);
+        // console.log(23);
         this.isIncorrect.set(true)
-      },1000)
+      },2000)
       setTimeout(()=> {
         this.isOpenInfoModalOpen = true;
-      }, 2000);
+      }, 3000);
+      setTimeout(() => {
+        this.indexOfAnswer = 0;
+        localStorage.clear()
+      }, 5000)
+      
     }
   }
 
   ngOnInit() {
-    if(localStorage.getItem('fiftyfiftyUsed') == "true"){
+    if(this.getLocalStorage('fiftyfiftyUsed') == "true"){
       this.fiftyFiftyClicked = true
     }else{
       this.fiftyFiftyClicked = false;
     }
-    this.indexOfAnswer = Number(localStorage.getItem('user-level'))
+    this.indexOfAnswer = Number(this.getLocalStorage('user-level'))
     this.question = questions[this.indexOfAnswer]
 
-    if(localStorage.getItem('userHelp') == "true" ){
+    if(this.getLocalStorage('userHelp') == "true" ){
       this.usersHelpClicked = true
     }else{
       this.usersHelpClicked = false
     }
 
+  }
+
+
+
+  private getLocalStorage(key: string) {
+    
+    return localStorage.getItem(key)
+  }
+
+  private setLocalStorage(key: string, data: any) {
+   localStorage.setItem(key, data)
   }
 
 }

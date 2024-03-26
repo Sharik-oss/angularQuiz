@@ -20,7 +20,7 @@ export class ModalComponent {
   @Output() closePopup = new EventEmitter<boolean>()
   @Input() question:any = [];
   constructor(){
-    console.log(this.otherPercentages)
+    // console.log(this.otherPercentages)
   }
   closeModal($event: Event){
     $event.preventDefault()
