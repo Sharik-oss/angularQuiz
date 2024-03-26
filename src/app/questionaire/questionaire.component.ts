@@ -133,9 +133,11 @@ export class QuestionaireComponent implements OnInit{
       
     }else{
       const totalAnswersCount = this.question.questionanswers.length;
-
+      this.correctAnswersSave = this.question.questionanswers
     // Generate random percentages for each answer
       for (let i = 0; i < totalAnswersCount - 1; i++) {
+        console.log(totalAnswersCount, "total answers without 50/50");
+        
           const randomPercentage = Math.floor(Math.random() * (100 - this.allPercentages.reduce((acc, curr) => acc + curr, 0)));
           this.allPercentages.push(randomPercentage);
       }
