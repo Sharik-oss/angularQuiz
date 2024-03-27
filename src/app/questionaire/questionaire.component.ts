@@ -125,12 +125,9 @@ export class QuestionaireComponent implements OnInit {
         (acc, curr) => acc + curr,
         0
       );
-
-      // Calculate the last percentage to ensure the sum equals 100
       const lastPercentage = 100 - sumOfOtherPercentages;
 
       this.allPercentages.push(lastPercentage);
-      // console.log(this.allPercentages);
     }
     this.isOpenPercentage = true;
   }
@@ -223,7 +220,6 @@ export class QuestionaireComponent implements OnInit {
     } else {
       let interval = setInterval(() => {
         this.animationTargetIndex++;
-        console.log(this.animationTargetIndex);
 
         if (this.animationTargetIndex === Number(storedLevel)) {
           clearInterval(interval);
