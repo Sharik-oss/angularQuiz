@@ -1,35 +1,79 @@
 <div class="wrapper">
-    <div class="game">
-        <div class="main">
-            <div class="cover"></div>
-            <!-- <div class="user-vs-admin">
+  <div class="game">
+    <div class="main">
+      <div class="cover"></div>
+      <!-- <div class="user-vs-admin">
                 <img src="/../../assets/avatar male.png" class="avatars" alt="male">
                 <img src="../../assets/vs.png" class="avatars" alt="vs">
                 <img src="/../../assets/avatar female.png" class="avatars" alt="female">
             </div> -->
-            <div class="question-container">
-                <div class="question-text">{{question.questionText}}</div>
-                <div class="question-answers">
-                    <ng-container  *ngFor="let option of question.questionanswers">
-                        <button class="answer" [disabled]="clicked" [ngClass]="{'green': question.answer === option && isCorrect, 'red': selectedAnswer() === option && isIncorrect()}" (click)="checkAnswer(option, $event)">{{option}}</button>
-                    </ng-container >
-                </div>
-            </div>
+      <div class="question-container">
+        <div class="question-text">{{ question.questionText }}</div>
+        <div class="question-answers">
+          <ng-container *ngFor="let option of question.questionanswers">
+            <button
+              class="answer"
+              [disabled]="clicked"
+              [ngClass]="{
+                green: question.answer === option && isCorrect,
+                red: selectedAnswer() === option && isIncorrect()
+              }"
+              (click)="checkAnswer(option, $event)"
+            >
+              {{ option }}
+            </button>
+          </ng-container>
         </div>
-    
-        <div class="sidebar">
-            <div class="helpbox">
-                <button class="help-child" [disabled]="fiftyFiftyClicked" (click)="getHelpFiftyFifty()"> 50 / 50</button>
-                <button class="help-child" [disabled]="usersHelpClicked" (click)="getUserHelp()"> users</button>
-            </div>
-            <div class="levels-conatiner">
-                <div *ngFor="let amount of amounts;index as i" class="levels" [ngClass]="{'active': indexOfAnswer === amounts.length-i -1}">
-                    <h3>{{amount}}</h3>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <div class="sidebar">
+      <div class="helpbox">
+        <button
+          class="help-child"
+          [disabled]="fiftyFiftyClicked"
+          (click)="getHelpFiftyFifty()"
+        >
+          50 / 50
+        </button>
+        <button
+          class="help-child"
+          [disabled]="usersHelpClicked"
+          (click)="getUserHelp()"
+        >
+          users
+        </button>
+      </div>
+      <div class="levels-conatiner">
+        <div
+          *ngFor="let amount of amounts; index as i"
+          class="levels"
+          [ngClass]="{
+            active:
+              indexOfAnswer && animationTargetIndex === amounts.length - i - 1,
+            '.level-animation': animationTargetIndex === amounts.length - i - 1
+          }"
+        >
+          <h3>{{ amount }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<app-info-modal *ngIf="isOpenInfoModalOpen" (closePopup)="onPopupClose($event)" [score]="score" [title]="title" [description]="description" [buttonText]="buttonText" [gameOver]="gameOver"></app-info-modal>
-<app-modal *ngIf="isOpenPercentage" (closePopup)="isOpenPercentage = false" [otherPercentages]="allPercentages" [indexOfAnswer]="indexOfAnswer" [question]="correctAnswersSave"></app-modal>
+<app-info-modal
+  *ngIf="isOpenInfoModalOpen"
+  (closePopup)="onPopupClose($event)"
+  [score]="score"
+  [title]="title"
+  [description]="description"
+  [buttonText]="buttonText"
+  [gameOver]="gameOver"
+></app-info-modal>
+<app-modal
+  *ngIf="isOpenPercentage"
+  (closePopup)="isOpenPercentage = false"
+  [otherPercentages]="allPercentages"
+  [indexOfAnswer]="indexOfAnswer"
+  [question]="correctAnswersSave"
+></app-modal>
