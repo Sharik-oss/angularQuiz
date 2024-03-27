@@ -154,15 +154,19 @@ export class QuestionaireComponent implements OnInit {
         this.isCorrect = false;
       }, 3000);
       if (this.indexOfAnswer === 5) {
-        this.isOpenInfoModalOpen = true;
-        this.score = 200;
-        this.setLocalStorage('user-score', JSON.stringify(this.score));
-        this.title = `გილოცავთ ${this.getLocalStorage('user-name')}`;
-        this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`;
-        this.buttonText = 'მადლობა';
-        this.gameOver = false;
+        setTimeout(() => {
+          this.isOpenInfoModalOpen = true;
+          this.score = 200;
+          this.setLocalStorage('user-score', JSON.stringify(this.score));
+          this.title = `გილოცავთ ${this.getLocalStorage('user-name')}`;
+          this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`;
+          this.buttonText = 'მადლობა';
+          this.gameOver = false;
+        }, 4000)
+       
       }
       if (this.indexOfAnswer === 10) {
+        setTimeout(() => {
         this.isOpenInfoModalOpen = true;
         this.score = 3000;
         this.setLocalStorage('user-score', JSON.stringify(this.score));
@@ -170,8 +174,10 @@ export class QuestionaireComponent implements OnInit {
         this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`;
         this.buttonText = 'მადლობა';
         this.gameOver = false;
+        }, 4000)
       }
       if (this.indexOfAnswer === 14) {
+        setTimeout(() => {
         this.isOpenInfoModalOpen = true;
         this.score = 20000;
         this.setLocalStorage('user-score', JSON.stringify(this.score));
@@ -180,6 +186,7 @@ export class QuestionaireComponent implements OnInit {
         this.buttonText = 'მადლობა';
         this.gameOver = true;
         this.indexOfAnswer = 0;
+        }, 4000)
       }
     } else {
       this.gameOver = true;
