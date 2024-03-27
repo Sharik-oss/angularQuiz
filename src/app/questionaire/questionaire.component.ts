@@ -162,7 +162,7 @@ export class QuestionaireComponent implements OnInit {
           this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`;
           this.buttonText = 'მადლობა';
           this.gameOver = false;
-        }, 4000)
+        }, 2000)
        
       }
       if (this.indexOfAnswer === 10) {
@@ -174,7 +174,7 @@ export class QuestionaireComponent implements OnInit {
         this.description = `თქვენი გარანტირებული თანხა არის ${this.score} ლარი`;
         this.buttonText = 'მადლობა';
         this.gameOver = false;
-        }, 4000)
+        }, 2000)
       }
       if (this.indexOfAnswer === 14) {
         setTimeout(() => {
@@ -186,7 +186,8 @@ export class QuestionaireComponent implements OnInit {
         this.buttonText = 'მადლობა';
         this.gameOver = true;
         this.indexOfAnswer = 0;
-        }, 4000)
+        localStorage.clear();
+        }, 2000)
       }
     } else {
       this.gameOver = true;
